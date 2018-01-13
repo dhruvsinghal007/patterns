@@ -1,0 +1,6 @@
+Can not find  class A object with id :  123 in module Service Discovery 1
+Can not find  class B object with id :  124 in module Service Discovery 2
+Can not find  class B object with id :  125 in module Service Discovery 1
+Can not find  class A object with id :  123 in module Service Discovery 2
+Can not find  class B object with id :  126 in module Service Discovery 1
+Can not find  class A object with id :  127 in module Service Discovery 1
