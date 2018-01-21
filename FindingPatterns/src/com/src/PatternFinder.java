@@ -35,17 +35,18 @@ public class PatternFinder {
 	}
 
 	//Only Works for a certain formats of Date...and Case Insensitive
-	//Formats are DD-(/)MON-(/)YY and DD-(/)MM-(/)YY
+	//Formats are DD-(/)MON-(/)YY and DD-(/)MM-(/)YY and YYYY-(/)MM-(/)DD
 	private boolean isDate(String input){
 		int size = input.length();
 		
 		try{
-			if(input.charAt(size-3) ==  input.charAt(2) && input.charAt(input.charAt(2)) == '-' || input.charAt(input.charAt(2)) == '/'){
+			if(input.charAt(size-3) == input.charAt(2) && input.charAt(2) == '-' || input.charAt(2) == '/'){
 				try{
+					//DD-MON-YY
 					if(size == 9){
 						if(input.substring(3, 6).toUpperCase().equals("JAN") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
-								input.substring(3, 6).toUpperCase().equals("FEB") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 28 && Integer.parseInt(input.substring(size-2, size)) % 4 != 0 && Integer.parseInt(input.substring(size-2, size)) > 0 ||
-								input.substring(3, 6).toUpperCase().equals("FEB") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 29 && Integer.parseInt(input.substring(size-2, size)) % 4 == 0 && Integer.parseInt(input.substring(size-2, size)) > 0 ||		
+								input.substring(3, 6).toUpperCase().equals("FEB") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 28 && Integer.parseInt(input.substring(size-2, size)) > 0 && Integer.parseInt(input.substring(size-2, size)) % 4 != 0 ||
+								input.substring(3, 6).toUpperCase().equals("FEB") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 29 && Integer.parseInt(input.substring(size-2, size)) > 0 && Integer.parseInt(input.substring(size-2, size)) % 4 == 0 ||		
 								input.substring(3, 6).toUpperCase().equals("MAR") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
 								input.substring(3, 6).toUpperCase().equals("APR") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
 								input.substring(3, 6).toUpperCase().equals("MAY") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
@@ -62,10 +63,11 @@ public class PatternFinder {
 							return false;
 						}
 					}
+					//DD-MM-YY
 					else if (size == 8){
 						if(input.substring(3, 5).toUpperCase().equals("01") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
-								input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 28 && Integer.parseInt(input.substring(size-2, size)) % 4 != 0 && Integer.parseInt(input.substring(size-2, size)) > 0 ||
-								input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 29 && Integer.parseInt(input.substring(size-2, size)) % 4 == 0 && Integer.parseInt(input.substring(size-2, size)) > 0 ||		
+								input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 28 && Integer.parseInt(input.substring(size-2, size)) > 0 && Integer.parseInt(input.substring(size-2, size)) % 4 != 0 ||
+								input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 29 && Integer.parseInt(input.substring(size-2, size)) > 0 && Integer.parseInt(input.substring(size-2, size)) % 4 == 0 ||		
 								input.substring(3, 5).toUpperCase().equals("03") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
 								input.substring(3, 5).toUpperCase().equals("04") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
 								input.substring(3, 5).toUpperCase().equals("05") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
@@ -90,6 +92,83 @@ public class PatternFinder {
 					return false;
 				}
 			}
+			else if(size == 10){
+				if(input.charAt(size-3) == input.charAt(4) && input.charAt(size-3) == '-' || input.charAt(size-3) == '/'){
+					if(input.substring(5, 7).toUpperCase().equals("01") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("02") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 28 && Integer.parseInt(input.substring(0, 4)) > 0 && Integer.parseInt(input.substring(0, 4)) % 4 != 0 ||
+							input.substring(5, 7).toUpperCase().equals("02") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 29 && Integer.parseInt(input.substring(0, 4)) > 0 && Integer.parseInt(input.substring(0, 4)) % 4 == 0 ||		
+							input.substring(5, 7).toUpperCase().equals("03") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("04") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 30 ||
+							input.substring(5, 7).toUpperCase().equals("05") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("06") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 30 ||
+							input.substring(5, 7).toUpperCase().equals("07") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("08") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("09") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 30 ||
+							input.substring(5, 7).toUpperCase().equals("10") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ||
+							input.substring(5, 7).toUpperCase().equals("11") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 30 ||
+							input.substring(5, 7).toUpperCase().equals("12") && Integer.parseInt(input.substring(size - 2, size)) > 0 && Integer.parseInt(input.substring(size - 2, size)) <= 31 ){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+				else if(input.charAt(size-5) == input.charAt(2) && input.charAt(size-5) == '-' || input.charAt(size-5) == '/'){
+					if(input.substring(3, 5).toUpperCase().equals("01") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 28 && Integer.parseInt(input.substring(size - 4, size)) > 0 && Integer.parseInt(input.substring(size - 4, size)) % 4 != 0 ||
+							input.substring(3, 5).toUpperCase().equals("02") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 29 && Integer.parseInt(input.substring(size - 4, size)) > 0 && Integer.parseInt(input.substring(size - 4, size)) % 4 == 0 ||		
+							input.substring(3, 5).toUpperCase().equals("03") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("04") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
+							input.substring(3, 5).toUpperCase().equals("05") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("06") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
+							input.substring(3, 5).toUpperCase().equals("07") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("08") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("09") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
+							input.substring(3, 5).toUpperCase().equals("10") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ||
+							input.substring(3, 5).toUpperCase().equals("11") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 30 ||
+							input.substring(3, 5).toUpperCase().equals("12") && Integer.parseInt(input.substring(0, 2)) > 0 && Integer.parseInt(input.substring(0, 2)) <= 31 ){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+			}
+			else{
+				return false;
+			}
+		}
+		catch(StringIndexOutOfBoundsException e){
+			return false;
+		}
+		
+		return false;
+	}
+	
+	private boolean isTime(String input){
+		int size = input.length();
+		
+		try{
+			if(input.charAt(size-3) == input.charAt(2) && input.charAt(2) == ':'){
+				try{
+					if (size == 8){
+							if(Integer.parseInt(input.substring(0, 2)) <= 23 && 
+									Integer.parseInt(input.substring(3, 5)) <= 59 &&
+									Integer.parseInt(input.substring(6, 8)) <= 59){
+								return true;
+						}
+						else{
+							return false;
+						}
+					}
+					else{
+						return false;
+					}
+				}
+				catch (NumberFormatException e) {
+					return false;
+				}
+			}
 		}
 		catch(StringIndexOutOfBoundsException e){
 			return false;
@@ -101,7 +180,10 @@ public class PatternFinder {
 	private ObjType getType(Object o){
 		if(o instanceof String){
 			String s = o.toString();
-			if(isDate(s)){
+			if(isTime(s)){
+				return ObjType.TIME;
+			}
+			else if(isDate(s)){
 				return ObjType.DATE;
 			}
 			else{
@@ -121,7 +203,13 @@ public class PatternFinder {
 	
 	private void populate(String[] inputArray, int count){
 		
-		int noOfSpaces = inputArray[1].split(" ").length - 1;
+		int noOfSpaces = inputArray[0].split(" ").length - 1;
+		
+		for (int i = 1 ; inputArray[i] != null && i < inputArray.length ; i++){
+			if((inputArray[i].split(" ").length - 1) > noOfSpaces){
+				noOfSpaces = inputArray[i].split(" ").length - 1;
+			}
+		}
 		
 		splitInputArray(noOfSpaces);
 		
@@ -131,8 +219,9 @@ public class PatternFinder {
 			}
 		}		
 		for(int i = 1 ; i < count ; i++){
-			for(int j = 0 ; j < splitArray[i].length ; j++){
-				if(splitArray[i][j].equals(splitArray[i-1][j])){
+			for(int j = 0 ; j < splitArray[i].length && splitArray[i][j] != null ; j++){
+				//System.out.println(i + " " + j);
+				if( j < splitArray[i-1].length && splitArray[i][j].equals(splitArray[i-1][j])){
 					noOfSameElements[j] ++;
 				}
 				objType[j] = getType(splitArray[i][j]);
@@ -155,7 +244,7 @@ public class PatternFinder {
 			}
 		}
 		
-		String res[] = new String[result.length];
+		String res[] = new String[(2 * result.length) + 1];
 		int index = 0;
 		int countConst = 1;
 		int countVar = 1;
@@ -163,11 +252,12 @@ public class PatternFinder {
 		String constElement = "";
 		
 		for(int i = 0 ; i < result.length ; i++){
-			if(result[i].equals("WORD") || result[i].equals("NUMBER") || result[i].equals("DATE")){
+			if(result[i].equals("WORD") || result[i].equals("NUMBER") || result[i].equals("DATE") || result[i].equals("TIME")){
 				if(i > 0){
 					res[index ++] = constElement;
 					constElement = "";
 				}
+				//System.out.println(i);
 				res[index ++] = "Variable " + (countVar ++) + ": " + result[i];
 			}
 			else{
@@ -200,5 +290,9 @@ public class PatternFinder {
 			}
 		}
 		return output;
-	}	
+	}
+	
+	public void testMethods(String s){
+		System.out.println(getType(s));
+	}
 }

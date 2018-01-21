@@ -17,12 +17,14 @@ public class PatternFinderTester {
 			file = new File("log.txt");
 			reader = new BufferedReader(new FileReader(file));
 			
-			String[] inSplit = new String[500];
+			String[] inSplit = new String[100000];
 			String line = null;
 			int i = 0;
 			
 			while(file.exists() && (line = reader.readLine()) != null){
-				inSplit[i++] = line;
+				if(line.equals("") == false){
+					inSplit[i++] = line;
+				}
 			}
 			
 			/*String[] inSplit = {
@@ -51,6 +53,19 @@ public class PatternFinderTester {
 					"Can not find  class B object with id :  126 in module Service Discovery 1 waiting for response for BB working for 6",
 					"Can not find  class A object with id :  127 in module Service Discovery 1 waiting for response for AA working for 1"
 			};*/
+			
+			/*int c = 0, c1 = 0, c2 = 0;
+			for(int j = 1 ; j < inSplit.length && inSplit[j] != null ; j++){
+				if(inSplit[j].substring(0, 10).equals(inSplit[j-1].substring(0, 10))){
+					c++;
+				}
+				else{
+					System.out.println(j + "--" + inSplit[j].substring(0, 10) + ", " + inSplit[j-1].substring(0, 10));
+				}
+				
+				c1++;
+			}
+			System.out.println(c + " " + c1 + " " + c2);*/
 			
 			int count = 0;
 			for(i = 0 ; inSplit[i] != null ; i++){
